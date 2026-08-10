@@ -20,7 +20,12 @@ export default function Login() {
       login(res.data.token, res.data.user);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.error || 'Invalid password. Please try again.');
+      const apiError = err.response?.data;
+      if (apiError?.message) {
+        setError(`${apiError.error}: ${apiError.message}`);
+      } else {
+        setError(apiError?.error || 'Invalid password. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
