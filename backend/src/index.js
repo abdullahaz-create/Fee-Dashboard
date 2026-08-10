@@ -56,7 +56,13 @@ app.use((req, res) => {
 // ─── Global error handler ─────────────────────────────────────────────────────
 app.use((err, req, res, next) => {
   console.error('Unhandled error:', err);
-  res.status(500).json({ error: 'Internal server error' });
+  res.status(500).json({ 
+    error: 'Internal server error',
+    message: err.message,
+    code: err.code,
+    meta: err.meta,
+    stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
+  });
 });
 
 if (require.main === module || !process.env.VERCEL) {
