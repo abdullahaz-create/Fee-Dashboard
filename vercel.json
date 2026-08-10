@@ -1,26 +1,29 @@
 {
   "version": 2,
-  "services": {
-    "frontend": {
-      "root": "frontend/"
+  "builds": [
+    {
+      "src": "backend/src/index.js",
+      "use": "@vercel/node"
     },
-    "backend": {
-      "root": "backend/",
-      "entrypoint": "src/index.js"
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
     }
-  },
-  "rewrites": [
+  ],
+  "routes": [
     {
-      "source": "/api/(.*)",
-      "destination": {
-        "service": "backend"
-      }
+      "handle": "filesystem"
     },
     {
-      "source": "/(.*)",
-      "destination": {
-        "service": "frontend"
-      }
+      "src": "/api/(.*)",
+      "dest": "/backend/src/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
