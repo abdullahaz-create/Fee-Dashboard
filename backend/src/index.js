@@ -45,7 +45,17 @@ app.use('/api/classes',                       classRoutes);
 
 // ─── Health check ─────────────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  const safeKeys = Object.keys(process.env).filter(k => 
+    !k.toLowerCase().includes('secret') && 
+    !k.toLowerCase().includes('password') && 
+    !k.toLowerCase().includes('key') &&
+    !k.toLowerCase().includes('token')
+  );
+  res.json({ 
+    status: 'ok', 
+    timestamp: new Date().toISOString(),
+    envKeys: safeKeys
+  });
 });
 
 // ─── 404 handler ──────────────────────────────────────────────────────────────
