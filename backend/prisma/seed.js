@@ -4,16 +4,23 @@ const prisma = new PrismaClient();
 
 async function main() {
   console.log('Setting up academy admin account...');
+  const newPassword = 'pakacademy2026';
+  const passwordHash = await bcrypt.hash(newPassword, 10);
+
   const existing = await prisma.admin.findFirst();
   if (!existing) {
-    const passwordHash = await bcrypt.hash('Admin@123', 10);
     await prisma.admin.create({ data: { passwordHash } });
     console.log('Admin account created.');
   } else {
-    console.log('Admin account already exists — skipping creation.');
+    await prisma.admin.update({
+      where: { id: existing.id },
+      data: { passwordHash },
+    });
+    console.log('Admin password updated to pakacademy2026.');
   }
+
   console.log('');
-  console.log('Admin Password: Admin@123');
+  console.log(`Admin Password: ${newPassword}`);
   console.log('Login at http://localhost:5173');
 }
 
