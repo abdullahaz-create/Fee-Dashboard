@@ -91,19 +91,19 @@ export default function SubjectSummaryAll() {
         {data && (
           <div className="subject-dash-banner">
             <div className="subject-dash-banner-item">
-              <span className="subject-dash-banner-label">📚 Subjects Tracked</span>
+              <span className="subject-dash-banner-label">Subjects Tracked</span>
               <strong className="subject-dash-banner-value">{data.subjects.length}</strong>
             </div>
             <div className="subject-dash-banner-item">
-              <span className="subject-dash-banner-label">💰 Total Owed</span>
+              <span className="subject-dash-banner-label">Total Owed</span>
               <strong className="subject-dash-banner-value">{fmt(data.summary.totalOwed)}</strong>
             </div>
             <div className="subject-dash-banner-item subject-dash-banner-item--green">
-              <span className="subject-dash-banner-label">✅ Total Collected</span>
+              <span className="subject-dash-banner-label">Total Collected</span>
               <strong className="subject-dash-banner-value">{fmt(data.summary.totalCollected)}</strong>
             </div>
             <div className="subject-dash-banner-item subject-dash-banner-item--red">
-              <span className="subject-dash-banner-label">⏳ Remaining</span>
+              <span className="subject-dash-banner-label">Remaining</span>
               <strong className="subject-dash-banner-value">
                 {fmt(data.summary.totalOwed - data.summary.totalCollected)}
               </strong>
@@ -114,10 +114,10 @@ export default function SubjectSummaryAll() {
         {/* Quick-jump links */}
         <div style={{ display: 'flex', gap: 10, marginBottom: 20, flexWrap: 'wrap' }}>
           <button className="btn btn-secondary btn-sm" onClick={() => navigate('/class/11/subjects')}>
-            📚 Class 11 Details
+            Class 11 Details
           </button>
           <button className="btn btn-secondary btn-sm" onClick={() => navigate('/class/12/subjects')}>
-            🎓 Class 12 Details
+            Class 12 Details
           </button>
         </div>
 
@@ -160,7 +160,7 @@ export default function SubjectSummaryAll() {
                     <div className="subject-dash-card-header">
                       <div className="subject-dash-card-name">{subject.subjectName}</div>
                       {isFullyCollected && (
-                        <span className="subject-dash-fully-badge">✓ Fully Collected</span>
+                        <span className="subject-dash-fully-badge">Fully Collected</span>
                       )}
                     </div>
 

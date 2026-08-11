@@ -37,7 +37,7 @@ export default function MainDashboard() {
           <div className="class-card class-card-subject" onClick={() => navigate('/subject-summary')}>
             <div className="class-card-icon"></div>
             <div className="class-card-content">
-              <div className="class-card-label">📊 Subject Summary</div>
+              <div className="class-card-label">Subject Summary</div>
               <div className="class-card-sub">Class 11 + Class 12 Combined · Subject-wise Fee Collection</div>
             </div>
             <div className="class-card-arrow">→</div>

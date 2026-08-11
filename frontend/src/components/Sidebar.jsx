@@ -42,7 +42,7 @@ export default function Sidebar() {
             className={({ isActive }) => `sidebar-nav-link ${isActive ? 'active' : ''}`}
             onClick={closeMobile}
           >
-            <span className="nav-icon">🏠</span>
+            <span className="nav-icon"></span>
             Dashboard
           </NavLink>
 
@@ -52,7 +52,7 @@ export default function Sidebar() {
             className={({ isActive }) => `sidebar-nav-link ${isActive ? 'active' : ''}`}
             onClick={closeMobile}
           >
-            <span className="nav-icon">📚</span>
+            <span className="nav-icon"></span>
             Class 11
           </NavLink>
 
@@ -62,7 +62,7 @@ export default function Sidebar() {
             className={({ isActive }) => `sidebar-nav-link ${isActive ? 'active' : ''}`}
             onClick={closeMobile}
           >
-            <span className="nav-icon">🎓</span>
+            <span className="nav-icon"></span>
             Class 12
           </NavLink>
 
@@ -82,7 +82,7 @@ export default function Sidebar() {
             <div className="sidebar-user-role">Academy Admin</div>
           </div>
           <button className="sidebar-nav-link btn-ghost" onClick={handleLogout}>
-            <span className="nav-icon">🚪</span>
+            <span className="nav-icon"></span>
             Logout
           </button>
         </div>
