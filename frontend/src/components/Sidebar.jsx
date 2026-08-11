@@ -32,7 +32,7 @@ export default function Sidebar() {
             <div className="logo-icon">🎓</div>
             Fee Manager
           </div>
-          <div className="sidebar-logo-subtitle">Academy Administration</div>
+          <div className="sidebar-logo-subtitle">Pak Academy Fee Manager</div>
         </div>
 
         <nav className="sidebar-nav">

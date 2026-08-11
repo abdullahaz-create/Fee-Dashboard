@@ -283,13 +283,6 @@ export default function ClassDashboard() {
             <button id="add-student-btn" className="btn btn-primary" onClick={openAddStudentModal}>
               + Add Student
             </button>
-            <button
-              id="subject-summary-btn"
-              className="btn btn-secondary"
-              onClick={() => navigate(`/class/${cls}/subjects`)}
-            >
-              📊 Subject Summary
-            </button>
           </div>
         </div>
 
