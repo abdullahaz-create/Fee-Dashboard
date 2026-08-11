@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   console.log('Setting up academy admin account...');
-  const newPassword = 'pakacademy2026';
+  const newPassword = 'zahidparvez1100';
   const passwordHash = await bcrypt.hash(newPassword, 10);
 
   const existing = await prisma.admin.findFirst();
@@ -16,7 +16,7 @@ async function main() {
       where: { id: existing.id },
       data: { passwordHash },
     });
-    console.log('Admin password updated to pakacademy2026.');
+    console.log('Admin password updated to zahidparvez1100.');
   }
 
   console.log('');
