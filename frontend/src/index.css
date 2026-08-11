@@ -1403,6 +1403,14 @@ a:hover {
   border-color: rgba(139, 92, 246, 0.5);
 }
 
+.class-card-subject::before {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.10), transparent);
+}
+
+.class-card-subject:hover {
+  border-color: rgba(16, 185, 129, 0.5);
+}
+
 .class-card:hover::before {
   opacity: 1;
 }
