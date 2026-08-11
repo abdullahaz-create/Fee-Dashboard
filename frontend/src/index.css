@@ -1930,3 +1930,253 @@ a:hover {
   font-size: 16px;
   margin-left: 6px;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   SIDEBAR SUB-LINKS (indented sub-nav items)
+══════════════════════════════════════════════════════════════ */
+.sidebar-nav-sublink {
+  padding-left: 36px !important;
+  font-size: 13px !important;
+  color: var(--text-muted) !important;
+  opacity: 0.85;
+}
+.sidebar-nav-sublink:hover {
+  opacity: 1;
+  color: var(--text-secondary) !important;
+}
+.sidebar-nav-sublink.active {
+  color: var(--accent) !important;
+  opacity: 1;
+  background: var(--accent-light) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SUBJECT DASHBOARD
+══════════════════════════════════════════════════════════════ */
+
+/* Banner / Summary bar */
+.subject-dash-banner {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.subject-dash-banner-item {
+  flex: 1 1 160px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: var(--shadow-sm);
+}
+
+.subject-dash-banner-item--green {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+}
+
+.subject-dash-banner-item--red {
+  border-color: #fecaca;
+  background: #fef2f2;
+}
+
+.subject-dash-banner-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.subject-dash-banner-value {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.subject-dash-banner-item--green .subject-dash-banner-value {
+  color: var(--success);
+}
+
+.subject-dash-banner-item--red .subject-dash-banner-value {
+  color: var(--danger);
+}
+
+/* Period label */
+.subject-dash-period-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  padding: 8px 12px;
+  background: var(--bg-hover);
+  border-radius: var(--radius-sm);
+  display: inline-block;
+}
+
+/* Subject cards grid */
+.subject-dash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* Individual subject card */
+.subject-dash-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.subject-dash-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.subject-dash-card--paid {
+  border-color: #86efac;
+  background: linear-gradient(135deg, #f0fdf4, #ffffff);
+}
+
+/* Card header */
+.subject-dash-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.subject-dash-card-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.subject-dash-fully-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--success);
+  background: var(--success-light);
+  border: 1px solid #bbf7d0;
+  border-radius: 99px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+/* Amounts block */
+.subject-dash-card-amounts {
+  display: flex;
+  gap: 12px;
+}
+
+.subject-dash-amount-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.subject-dash-amount-block--green .subject-dash-amount-value {
+  color: var(--success);
+}
+
+.subject-dash-amount-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.subject-dash-amount-value {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.subject-dash-amount-muted {
+  color: var(--text-secondary);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* Progress bar */
+.subject-dash-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.subject-dash-progress-bar {
+  flex: 1;
+  height: 7px;
+  background: var(--bg-hover);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.subject-dash-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--success), #4ade80);
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+
+.subject-dash-progress-pct {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--success);
+  min-width: 34px;
+  text-align: right;
+}
+
+/* Status counts */
+.subject-dash-counts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.subject-dash-count {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 99px;
+}
+
+.subject-dash-count--paid {
+  background: var(--success-light);
+  color: var(--success);
+}
+
+.subject-dash-count--partial {
+  background: var(--warning-light);
+  color: var(--warning);
+}
+
+.subject-dash-count--unpaid {
+  background: var(--danger-light);
+  color: var(--danger);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .subject-dash-banner {
+    flex-direction: column;
+  }
+  .subject-dash-grid {
+    grid-template-columns: 1fr;
+  }
+  .subject-dash-card-amounts {
+    flex-direction: column;
+  }
+}

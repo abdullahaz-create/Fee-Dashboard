@@ -283,6 +283,13 @@ export default function ClassDashboard() {
             <button id="add-student-btn" className="btn btn-primary" onClick={openAddStudentModal}>
               + Add Student
             </button>
+            <button
+              id="subject-summary-btn"
+              className="btn btn-secondary"
+              onClick={() => navigate(`/class/${cls}/subjects`)}
+            >
+              📊 Subject Summary
+            </button>
           </div>
         </div>
 
@@ -365,8 +372,8 @@ export default function ClassDashboard() {
                       <tr key={student.id}>
                         {/* 1. Student Name + Fee button inline */}
                         <td style={{ fontWeight: 700, color: 'var(--text-primary)' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'nowrap' }}>
-                            <span style={{ whiteSpace: 'nowrap' }}>{student.name}</span>
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+                            <span>{student.name}</span>
                             <button
                               id={`pay-btn-${student.id}`}
                               className="btn btn-primary btn-sm"

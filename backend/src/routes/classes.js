@@ -82,4 +82,98 @@ router.get('/:class/summary', async (req, res) => {
   }
 });
 
+// ─── GET /api/classes/:class/subject-summary ────────────────────────────────
+// Query: month=8&year=2026 (both optional — omit for all-time totals)
+// Returns subject-wise totals: totalOwed (from all records) and
+// totalCollected (only from PAID records) for the given class.
+router.get('/:class/subject-summary', async (req, res) => {
+  try {
+    const cls   = req.params.class;
+    const month = req.query.month ? parseInt(req.query.month, 10) : null;
+    const year  = req.query.year  ? parseInt(req.query.year,  10) : null;
+
+    // Build fee record filter
+    const feeRecordWhere = {};
+    if (month) feeRecordWhere.month = month;
+    if (year)  feeRecordWhere.year  = year;
+
+    // Fetch all active students in this class with their fee records and configured subjects
+    const students = await prisma.student.findMany({
+      where: { class: String(cls), status: 'active' },
+      include: {
+        subjects: { orderBy: { subjectName: 'asc' } },
+        feeRecords: {
+          where: Object.keys(feeRecordWhere).length > 0 ? feeRecordWhere : undefined,
+          include: {
+            subjectBreakdown: true,
+          },
+        },
+      },
+    });
+
+    // Aggregate per-subject
+    const subjectMap = {}; // subjectName -> { totalOwed, totalCollected, paidCount, partialCount, unpaidCount }
+
+    for (const student of students) {
+      for (const record of student.feeRecords) {
+        for (const sb of record.subjectBreakdown) {
+          if (!subjectMap[sb.subjectName]) {
+            subjectMap[sb.subjectName] = {
+              subjectName:    sb.subjectName,
+              totalOwed:      0,
+              totalCollected: 0,
+              paidCount:      0,
+              partialCount:   0,
+              unpaidCount:    0,
+            };
+          }
+          subjectMap[sb.subjectName].totalOwed += sb.amount;
+
+          if (record.status === 'PAID') {
+            subjectMap[sb.subjectName].totalCollected += sb.amount;
+            subjectMap[sb.subjectName].paidCount      += 1;
+          } else if (record.status === 'PARTIAL') {
+            subjectMap[sb.subjectName].partialCount   += 1;
+          } else {
+            subjectMap[sb.subjectName].unpaidCount    += 1;
+          }
+        }
+      }
+    }
+
+    // Also include students who have subjects configured but no fee record yet
+    for (const student of students) {
+      for (const sub of student.subjects || []) {
+        if (!subjectMap[sub.subjectName]) {
+          subjectMap[sub.subjectName] = {
+            subjectName:    sub.subjectName,
+            totalOwed:      0,
+            totalCollected: 0,
+            paidCount:      0,
+            partialCount:   0,
+            unpaidCount:    0,
+          };
+        }
+      }
+    }
+
+    const result = Object.values(subjectMap).sort((a, b) =>
+      a.subjectName.localeCompare(b.subjectName)
+    );
+
+    // Class-level summary
+    const summary = {
+      totalStudents:    students.length,
+      totalOwed:        result.reduce((s, x) => s + x.totalOwed,      0),
+      totalCollected:   result.reduce((s, x) => s + x.totalCollected,  0),
+    };
+
+    res.json({ class: cls, month, year, summary, subjects: result });
+  } catch (err) {
+    console.error('Subject summary error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 module.exports = router;
+

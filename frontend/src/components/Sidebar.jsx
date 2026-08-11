@@ -45,8 +45,11 @@ export default function Sidebar() {
             <span className="nav-icon">🏠</span>
             Dashboard
           </NavLink>
+
+          {/* Class 11 group */}
           <NavLink
             to="/class/11"
+            end
             className={({ isActive }) => `sidebar-nav-link ${isActive ? 'active' : ''}`}
             onClick={closeMobile}
           >
@@ -54,12 +57,31 @@ export default function Sidebar() {
             Class 11
           </NavLink>
           <NavLink
+            to="/class/11/subjects"
+            className={({ isActive }) => `sidebar-nav-link sidebar-nav-sublink ${isActive ? 'active' : ''}`}
+            onClick={closeMobile}
+          >
+            <span className="nav-icon">📊</span>
+            Subject Summary
+          </NavLink>
+
+          {/* Class 12 group */}
+          <NavLink
             to="/class/12"
+            end
             className={({ isActive }) => `sidebar-nav-link ${isActive ? 'active' : ''}`}
             onClick={closeMobile}
           >
             <span className="nav-icon">🎓</span>
             Class 12
+          </NavLink>
+          <NavLink
+            to="/class/12/subjects"
+            className={({ isActive }) => `sidebar-nav-link sidebar-nav-sublink ${isActive ? 'active' : ''}`}
+            onClick={closeMobile}
+          >
+            <span className="nav-icon">📊</span>
+            Subject Summary
           </NavLink>
         </nav>
 
