@@ -324,19 +324,16 @@ export default function ClassDashboard() {
               <table className="table ledger-table">
                 <thead>
                   <tr>
-                    {/* Exact Column Order Requested */}
-                    <th style={{ minWidth: 150, textAlign: 'left' }}>Student Name</th>
-                    <th style={{ minWidth: 110, textAlign: 'right' }}>Total Fee</th>
+                    <th style={{ minWidth: 220, textAlign: 'left' }}>Student Name</th>
+                    <th style={{ minWidth: 130, textAlign: 'right' }}>Total Fee</th>
+                    <th style={{ minWidth: 90, textAlign: 'center' }}>Status</th>
                     {EXACT_SUBJECTS.map(sub => (
                       <th key={sub} style={{ textAlign: 'center', minWidth: 90 }}>{sub}</th>
                     ))}
                     <th style={{ minWidth: 100, textAlign: 'right' }}>Paid</th>
                     <th style={{ minWidth: 100, textAlign: 'right' }}>Remaining</th>
-                    <th style={{ minWidth: 90, textAlign: 'center' }}>Status</th>
-                    <th style={{ minWidth: 120 }}>Contact</th>
-                    <th style={{ minWidth: 140 }}>Father Name</th>
                     <th style={{ minWidth: 80, textAlign: 'center' }}>Roll No</th>
-                    <th style={{ minWidth: 140, textAlign: 'right' }}>Actions</th>
+                    <th style={{ minWidth: 100, textAlign: 'right' }}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -366,9 +363,19 @@ export default function ClassDashboard() {
 
                     return (
                       <tr key={student.id}>
-                        {/* 1. Student Name */}
+                        {/* 1. Student Name + Fee button inline */}
                         <td style={{ fontWeight: 700, color: 'var(--text-primary)' }}>
-                          {student.name}
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'nowrap' }}>
+                            <span style={{ whiteSpace: 'nowrap' }}>{student.name}</span>
+                            <button
+                              id={`pay-btn-${student.id}`}
+                              className="btn btn-primary btn-sm"
+                              onClick={() => openPayModal(student)}
+                              style={{ flexShrink: 0 }}
+                            >
+                              + Fee
+                            </button>
+                          </div>
                         </td>
 
                         {/* 2. Total Fee */}
@@ -376,7 +383,12 @@ export default function ClassDashboard() {
                           {fmt(totalFee)}
                         </td>
 
-                        {/* 3–10. Subject Fee Columns: Physics, Math, English, Computer, Urdu, Chemistry, Biology, Islamiat */}
+                        {/* 3. Status badge — right after Total Fee */}
+                        <td style={{ textAlign: 'center' }}>
+                          <StatusBadge status={status} />
+                        </td>
+
+                        {/* Subject Fee Columns: Physics, Math, English, Computer, Urdu, Chemistry, Biology, Islamiat */}
                         {EXACT_SUBJECTS.map(sub => {
                           const amt = subjectAmounts[sub];
                           return (
@@ -397,31 +409,15 @@ export default function ClassDashboard() {
                         <td style={{ textAlign: 'right', fontWeight: 700, color: remaining > 0 ? 'var(--danger)' : 'var(--success)' }}>
                           {fmt(remaining)}
                         </td>
-                        <td style={{ textAlign: 'center' }}>
-                          <StatusBadge status={status} />
-                        </td>
 
-                        {/* 11–13. Final Info Columns: Contact, Father Name, Roll No */}
-                        <td style={{ color: 'var(--text-secondary)', fontSize: 13 }}>
-                          {student.contact || '—'}
-                        </td>
-                        <td style={{ color: 'var(--text-secondary)', fontSize: 13 }}>
-                          {student.fatherName || '—'}
-                        </td>
+                        {/* Roll No */}
                         <td style={{ textAlign: 'center', color: 'var(--text-muted)', fontWeight: 600 }}>
                           {student.rollNumber || '—'}
                         </td>
 
-                        {/* Actions */}
+                        {/* Actions: Edit + Delete only */}
                         <td>
                           <div className="fee-action-group" style={{ justifyContent: 'flex-end' }}>
-                            <button
-                              id={`pay-btn-${student.id}`}
-                              className="btn btn-primary btn-sm"
-                              onClick={() => openPayModal(student)}
-                            >
-                              + Fee
-                            </button>
                             <button
                               id={`edit-btn-${student.id}`}
                               className="btn btn-secondary btn-sm"

@@ -209,8 +209,6 @@ export default function StudentDetail() {
             <div className="student-detail-meta">
               <div className="student-detail-meta-item">🏫 Class {student.class}</div>
               {student.rollNumber  && <div className="student-detail-meta-item">🔢 Roll No: {student.rollNumber}</div>}
-              {student.fatherName  && <div className="student-detail-meta-item">👨 {student.fatherName}</div>}
-              {student.contact     && <div className="student-detail-meta-item">📞 {student.contact}</div>}
               {student.admissionDate && <div className="student-detail-meta-item">📅 Admitted: {student.admissionDate}</div>}
             </div>
           </div>
