@@ -5,11 +5,11 @@ import api from '../api/axios';
 
 export default function Sidebar() {
   const { logout } = useAuth();
-  const navigate   = useNavigate();
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleLogout = async () => {
-    try { await api.post('/auth/logout'); } catch {}
+    try { await api.post('/auth/logout'); } catch { }
     logout();
     navigate('/');
   };
@@ -21,7 +21,7 @@ export default function Sidebar() {
       {/* Mobile Header */}
       <div className="mobile-header">
         <button className="mobile-menu-btn" onClick={() => setMobileOpen(true)}>☰</button>
-        <span className="mobile-logo">🎓 Academy Fee Manager</span>
+        <span className="mobile-logo">Pak Academy Fee Manager</span>
       </div>
 
       {mobileOpen && <div className="sidebar-overlay" onClick={closeMobile} />}
@@ -46,7 +46,6 @@ export default function Sidebar() {
             Dashboard
           </NavLink>
 
-          {/* Class 11 group */}
           <NavLink
             to="/class/11"
             end
@@ -56,16 +55,7 @@ export default function Sidebar() {
             <span className="nav-icon">📚</span>
             Class 11
           </NavLink>
-          <NavLink
-            to="/class/11/subjects"
-            className={({ isActive }) => `sidebar-nav-link sidebar-nav-sublink ${isActive ? 'active' : ''}`}
-            onClick={closeMobile}
-          >
-            <span className="nav-icon">📊</span>
-            Subject Summary
-          </NavLink>
 
-          {/* Class 12 group */}
           <NavLink
             to="/class/12"
             end
@@ -75,9 +65,10 @@ export default function Sidebar() {
             <span className="nav-icon">🎓</span>
             Class 12
           </NavLink>
+
           <NavLink
-            to="/class/12/subjects"
-            className={({ isActive }) => `sidebar-nav-link sidebar-nav-sublink ${isActive ? 'active' : ''}`}
+            to="/subject-summary"
+            className={({ isActive }) => `sidebar-nav-link ${isActive ? 'active' : ''}`}
             onClick={closeMobile}
           >
             <span className="nav-icon">📊</span>

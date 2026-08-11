@@ -175,5 +175,52 @@ router.get('/:class/subject-summary', async (req, res) => {
   }
 });
 
-module.exports = router;
+// ─── GET /api/classes/combined-summary ──────────────────────────────────────
+router.get('/combined-summary', async (req, res) => {
+  try {
+    const month = req.query.month ? parseInt(req.query.month, 10) : null;
+    const year  = req.query.year  ? parseInt(req.query.year,  10) : null;
 
+    const feeRecordWhere = {};
+    if (month) feeRecordWhere.month = month;
+    if (year)  feeRecordWhere.year  = year;
+
+    const students = await prisma.student.findMany({
+      where: { class: { in: ['11', '12'] }, status: 'active' },
+      include: {
+        feeRecords: {
+          where: Object.keys(feeRecordWhere).length > 0 ? feeRecordWhere : undefined,
+          include: { subjectBreakdown: true },
+        },
+      },
+    });
+
+    const subjectMap = {};
+    for (const student of students) {
+      for (const record of student.feeRecords) {
+        for (const sb of record.subjectBreakdown) {
+          if (!subjectMap[sb.subjectName]) {
+            subjectMap[sb.subjectName] = { subjectName: sb.subjectName, totalOwed: 0, totalCollected: 0 };
+          }
+          subjectMap[sb.subjectName].totalOwed += sb.amount;
+          if (record.status === 'PAID') {
+            subjectMap[sb.subjectName].totalCollected += sb.amount;
+          }
+        }
+      }
+    }
+
+    const subjects = Object.values(subjectMap).sort((a, b) => a.subjectName.localeCompare(b.subjectName));
+    const summary = {
+      totalOwed: subjects.reduce((s, x) => s + x.totalOwed, 0),
+      totalCollected: subjects.reduce((s, x) => s + x.totalCollected, 0),
+    };
+
+    res.json({ month, year, summary, subjects });
+  } catch (err) {
+    console.error('Combined summary error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+module.exports = router;
