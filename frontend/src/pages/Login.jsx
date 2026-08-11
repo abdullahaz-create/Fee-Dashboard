@@ -6,68 +6,139 @@ import api from '../api/axios';
 export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
-  const handleLogin = async (e) => {
+  const [adminPassword, setAdminPassword] = useState('');
+  const [memberPin, setMemberPin] = useState('');
+  const [adminLoading, setAdminLoading] = useState(false);
+  const [memberLoading, setMemberLoading] = useState(false);
+  const [adminError, setAdminError] = useState('');
+  const [memberError, setMemberError] = useState('');
+
+  const handleAdminLogin = async (e) => {
     e.preventDefault();
-    setError('');
-    if (!password.trim()) { setError('Please enter the admin password.'); return; }
-    setLoading(true);
+    setAdminError('');
+    if (!adminPassword.trim()) { setAdminError('Please enter the admin password.'); return; }
+    setAdminLoading(true);
     try {
-      const res = await api.post('/auth/login', { password: password.trim() });
+      const res = await api.post('/auth/login', { password: adminPassword.trim() });
       login(res.data.token, res.data.user);
       navigate('/dashboard');
     } catch (err) {
       const apiError = err.response?.data;
       if (apiError?.message) {
-        setError(`${apiError.error}: ${apiError.message}`);
+        setAdminError(`${apiError.error}: ${apiError.message}`);
       } else {
-        setError(apiError?.error || 'Invalid password. Please try again.');
+        setAdminError(apiError?.error || 'Invalid password. Please try again.');
       }
     } finally {
-      setLoading(false);
+      setAdminLoading(false);
+    }
+  };
+
+  const handleMemberLogin = async (e) => {
+    e.preventDefault();
+    setMemberError('');
+    if (!memberPin.trim()) { setMemberError('Please enter the member PIN.'); return; }
+    setMemberLoading(true);
+    try {
+      const res = await api.post('/auth/member-login', { pin: memberPin.trim() });
+      login(res.data.token, res.data.user);
+      navigate('/dashboard');
+    } catch (err) {
+      const apiError = err.response?.data;
+      setMemberError(apiError?.error || 'Invalid PIN. Please try again.');
+    } finally {
+      setMemberLoading(false);
     }
   };
 
   return (
     <div className="login-page">
-      <div className="login-card">
+      <div className="login-card" style={{ maxWidth: 420 }}>
+        {/* Header */}
         <div className="login-logo">
           <div className="login-logo-title">Pak Academy Fee System</div>
-          <div className="login-logo-subtitle">Admin Access Only</div>
+          <div className="login-logo-subtitle">Select your access level to continue</div>
         </div>
 
-        {error && (
-          <div className="login-error">
-            <span>⚠️</span>
-            {error}
+        {/* ── Admin Login Section ── */}
+        <div className="login-section">
+          <div className="login-section-label">
+            <span className="login-section-icon">🔐</span>
+            Admin Login
           </div>
-        )}
+          {adminError && (
+            <div className="login-error">
+              <span>⚠️</span>
+              {adminError}
+            </div>
+          )}
+          <form onSubmit={handleAdminLogin} autoComplete="off">
+            <div className="form-group">
+              <label className="form-label">Admin Password</label>
+              <input
+                id="admin-password"
+                className="form-input"
+                type="password"
+                placeholder="Enter admin password"
+                value={adminPassword}
+                onChange={(e) => setAdminPassword(e.target.value)}
+                autoFocus
+              />
+            </div>
+            <button
+              id="admin-login-btn"
+              className="btn btn-primary login-submit"
+              type="submit"
+              disabled={adminLoading}
+            >
+              {adminLoading ? 'Signing in...' : '🔑 Admin Login'}
+            </button>
+          </form>
+        </div>
 
-        <form onSubmit={handleLogin} autoComplete="off">
-          <div className="form-group">
-            <label className="form-label">Admin Password</label>
-            <input
-              id="admin-password"
-              className="form-input"
-              type="password"
-              placeholder="Enter academy admin password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              autoFocus
-            />
+        {/* ── Divider ── */}
+        <div className="login-divider">
+          <div className="login-divider-line" />
+          <span className="login-divider-text">or</span>
+          <div className="login-divider-line" />
+        </div>
+
+        {/* ── Member Login Section ── */}
+        <div className="login-section">
+          <div className="login-section-label">
+            <span className="login-section-icon">👁️</span>
+            Member Login <span className="login-section-hint">(View only)</span>
           </div>
-          <button
-            id="login-btn"
-            className="btn btn-primary login-submit"
-            type="submit"
-            disabled={loading}
-          >
-            {loading ? 'Signing in...' : '🔑 Sign In'}
-          </button>
-        </form>
+          {memberError && (
+            <div className="login-error">
+              <span>⚠️</span>
+              {memberError}
+            </div>
+          )}
+          <form onSubmit={handleMemberLogin} autoComplete="off">
+            <div className="form-group">
+              <label className="form-label">Member PIN</label>
+              <input
+                id="member-pin"
+                className="form-input"
+                type="password"
+                inputMode="numeric"
+                placeholder="Enter member PIN"
+                value={memberPin}
+                onChange={(e) => setMemberPin(e.target.value)}
+              />
+            </div>
+            <button
+              id="member-login-btn"
+              className="btn btn-secondary login-submit"
+              type="submit"
+              disabled={memberLoading}
+            >
+              {memberLoading ? 'Signing in...' : '👁️ Member Login'}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

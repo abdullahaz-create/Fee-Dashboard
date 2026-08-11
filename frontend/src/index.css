@@ -993,6 +993,78 @@ a:hover {
   margin-top: 8px;
 }
 
+/* ── Login Section (Admin / Member blocks) ─────────────────────────────────── */
+.login-section {
+  margin-bottom: 4px;
+}
+
+.login-section-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.login-section-icon {
+  font-size: 16px;
+}
+
+.login-section-hint {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-left: 2px;
+}
+
+/* ── Login Divider ─────────────────────────────────────────────────────────── */
+.login-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.login-divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.login-divider-text {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+/* ── Role Badge in Sidebar ─────────────────────────────────────────────────── */
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.role-badge-admin {
+  background: var(--accent-light);
+  color: var(--accent);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+}
+
+.role-badge-member {
+  background: var(--success-light);
+  color: var(--success);
+  border: 1px solid rgba(16, 163, 74, 0.2);
+}
+
 /* ═══════════════════════════════════════════════════════════════
    STUDENT LIST
 ══════════════════════════════════════════════════════════════ */

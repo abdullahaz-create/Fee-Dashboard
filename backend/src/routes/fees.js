@@ -1,6 +1,6 @@
 const express = require('express');
 const prisma = require('../prisma');
-const { authenticate } = require('../middleware/auth');
+const { authenticate, requireAdmin } = require('../middleware/auth');
 
 const router = express.Router({ mergeParams: true });
 
@@ -35,9 +35,9 @@ router.get('/', async (req, res) => {
   }
 });
 
-// ─── POST /api/students/:studentId/fees ──────────────────────────────────────
+// ─── POST /api/students/:studentId/fees ────────────────────────────────────────────────────
 // Body: { month, year, subjectBreakdown: [{subjectName, amount}], notes }
-router.post('/', async (req, res) => {
+router.post('/', requireAdmin, async (req, res) => {
   try {
     const studentId = parseInt(req.params.studentId, 10);
     const { month, year, subjectBreakdown, notes } = req.body;

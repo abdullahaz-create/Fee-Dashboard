@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useToast } from '../contexts/ToastContext';
+import { useAuth } from '../contexts/AuthContext';
 import Sidebar from '../components/Sidebar';
 import Modal from '../components/Modal';
 import StatusBadge from '../components/StatusBadge';
@@ -15,6 +16,7 @@ const fmt = (n) => `Rs. ${Number(n || 0).toLocaleString('en-PK')}`;
 export default function StudentDetail() {
   const { id }       = useParams();
   const { addToast } = useToast();
+  const { isAdmin }  = useAuth();
   const navigate     = useNavigate();
   const now          = new Date();
 
@@ -227,17 +229,21 @@ export default function StudentDetail() {
         <div className="card" style={{ marginBottom: 24 }}>
           <div className="card-header">
             <h2 className="card-title">📋 Subject-wise Monthly Fee</h2>
-            <button className="btn btn-secondary btn-sm" onClick={openSubjectModal}>
-              ✏️ {subjects.length > 0 ? 'Edit Subjects' : 'Configure Subjects'}
-            </button>
+            {isAdmin && (
+              <button className="btn btn-secondary btn-sm" onClick={openSubjectModal}>
+                ✏️ {subjects.length > 0 ? 'Edit Subjects' : 'Configure Subjects'}
+              </button>
+            )}
           </div>
 
           {subjects.length === 0 ? (
             <div className="empty-state" style={{ padding: '24px 0' }}>
               <div className="empty-state-text">No subjects configured yet.</div>
-              <button className="btn btn-primary btn-sm" style={{ marginTop: 8 }} onClick={openSubjectModal}>
-                Configure Subject Fees
-              </button>
+              {isAdmin && (
+                <button className="btn btn-primary btn-sm" style={{ marginTop: 8 }} onClick={openSubjectModal}>
+                  Configure Subject Fees
+                </button>
+              )}
             </div>
           ) : (
             <div style={{ padding: '0 20px 16px' }}>
@@ -265,7 +271,7 @@ export default function StudentDetail() {
               <select className="form-select" value={filterYear} onChange={e => setFilterYear(Number(e.target.value))}>
                 {years.map(y => <option key={y} value={y}>{y}</option>)}
               </select>
-              {subjects.length > 0 && (
+              {isAdmin && subjects.length > 0 && (
                 <button id="create-fee-btn" className="btn btn-primary btn-sm" onClick={openFeeModal}>
                   + Create Fee Record
                 </button>
@@ -280,7 +286,9 @@ export default function StudentDetail() {
               <div className="empty-state-text">
                 {subjects.length === 0
                   ? 'Configure subject fees first, then create monthly fee records.'
-                  : `Click "+ Create Fee Record" to add a record for ${filterYear}.`}
+                  : isAdmin
+                    ? `Click "+ Create Fee Record" to add a record for ${filterYear}.`
+                    : `No fee records found for ${filterYear}.`}
               </div>
             </div>
           ) : (
@@ -310,7 +318,7 @@ export default function StudentDetail() {
                       <span className="fee-record-month">{record.monthName} {record.year}</span>
                       <StatusBadge status={record.status} />
                     </div>
-                    {record.status !== 'PAID' && (
+                    {isAdmin && record.status !== 'PAID' && (
                       <button
                         id={`pay-btn-${record.id}`}
                         className="btn btn-primary btn-sm"

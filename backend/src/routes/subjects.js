@@ -1,6 +1,6 @@
 const express = require('express');
 const prisma = require('../prisma');
-const { authenticate } = require('../middleware/auth');
+const { authenticate, requireAdmin } = require('../middleware/auth');
 
 const router = express.Router({ mergeParams: true });
 
@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
 // ─── PUT /api/students/:studentId/subjects ────────────────────────────────────
 // Body: [{ subjectName: string, monthlyAmount: number }]
 // Full replace — deletes all existing and recreates
-router.put('/', async (req, res) => {
+router.put('/', requireAdmin, async (req, res) => {
   try {
     const studentId = parseInt(req.params.studentId, 10);
     const subjects = req.body;

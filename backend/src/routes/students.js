@@ -1,6 +1,7 @@
 const express = require('express');
 const prisma = require('../prisma');
-const { authenticate } = require('../middleware/auth');
+const { authenticate, requireAdmin } = require('../middleware/auth');
+
 
 const router = express.Router();
 
@@ -39,7 +40,7 @@ router.get('/', async (req, res) => {
 });
 
 // ─── POST /api/students ───────────────────────────────────────────────────────
-router.post('/', async (req, res) => {
+router.post('/', requireAdmin, async (req, res) => {
   try {
     const { name, fatherName, class: cls, rollNumber, contact, admissionDate, notes } = req.body;
 
@@ -88,7 +89,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // ─── PUT /api/students/:id ────────────────────────────────────────────────────
-router.put('/:id', async (req, res) => {
+router.put('/:id', requireAdmin, async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
     const { name, fatherName, class: cls, rollNumber, contact, admissionDate, status, notes } = req.body;
@@ -122,7 +123,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // ─── DELETE /api/students/:id (soft delete — deactivate) ─────────────────────
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', requireAdmin, async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
     await prisma.student.update({

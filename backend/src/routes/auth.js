@@ -8,7 +8,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret';
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '8h';
 
 // ─── POST /api/auth/login ─────────────────────────────────────────────────────
-// Single admin password-only login
+// Admin password-only login
 router.post('/login', async (req, res) => {
   try {
     const { password } = req.body;
@@ -41,6 +41,33 @@ router.post('/login', async (req, res) => {
       code: err.code,
       meta: err.meta
     });
+  }
+});
+
+// ─── POST /api/auth/member-login ──────────────────────────────────────────────
+// Member PIN login — grants read-only (member) access
+router.post('/member-login', (req, res) => {
+  try {
+    const { pin } = req.body;
+    if (!pin || !String(pin).trim()) {
+      return res.status(400).json({ error: 'PIN is required' });
+    }
+
+    const MEMBER_PIN = process.env.MEMBER_PIN || '8410';
+    if (String(pin).trim() !== MEMBER_PIN) {
+      return res.status(401).json({ error: 'Invalid PIN. Please try again.' });
+    }
+
+    const token = jwt.sign(
+      { id: 'member', role: 'member' },
+      JWT_SECRET,
+      { expiresIn: JWT_EXPIRES_IN }
+    );
+
+    res.json({ token, user: { id: 'member', role: 'member', name: 'Member' } });
+  } catch (err) {
+    console.error('Member login error:', err);
+    res.status(500).json({ error: 'Internal server error', message: err.message });
   }
 });
 

@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import api from '../api/axios';
 
 export default function Sidebar() {
-  const { logout } = useAuth();
+  const { logout, user, isAdmin, isMember } = useAuth();
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -78,8 +78,14 @@ export default function Sidebar() {
 
         <div className="sidebar-footer">
           <div className="sidebar-user">
-            <div className="sidebar-user-name">Administrator</div>
-            <div className="sidebar-user-role">Academy Admin</div>
+            <div className="sidebar-user-name">
+              {isAdmin ? 'Administrator' : 'Member'}
+            </div>
+            <div className="sidebar-user-role">
+              <span className={`role-badge role-badge-${user?.role}`}>
+                {isAdmin ? '🔐 Admin' : '👁️ View Only'}
+              </span>
+            </div>
           </div>
           <button className="sidebar-nav-link btn-ghost" onClick={handleLogout}>
             <span className="nav-icon"></span>

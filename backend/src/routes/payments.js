@@ -1,6 +1,6 @@
 const express = require('express');
 const prisma = require('../prisma');
-const { authenticate } = require('../middleware/auth');
+const { authenticate, requireAdmin } = require('../middleware/auth');
 
 const router = express.Router({ mergeParams: true });
 
@@ -9,7 +9,7 @@ router.use(authenticate);
 // ─── POST /api/fees/:feeRecordId/payments ─────────────────────────────────────
 // Adds a payment to an existing monthly fee record.
 // Supports multiple payments per record (partial → full payment).
-router.post('/:feeRecordId/payments', async (req, res) => {
+router.post('/:feeRecordId/payments', requireAdmin, async (req, res) => {
   try {
     const feeRecordId = parseInt(req.params.feeRecordId, 10);
     const { amountPaid, paymentDate, notes } = req.body;

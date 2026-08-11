@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useToast } from '../contexts/ToastContext';
+import { useAuth } from '../contexts/AuthContext';
 import Sidebar from '../components/Sidebar';
 import Modal from '../components/Modal';
 import ConfirmDialog from '../components/ConfirmDialog';
@@ -29,6 +30,7 @@ const fmt = (n) => (n ? `Rs. ${Number(n).toLocaleString('en-PK')}` : 'Rs. 0');
 export default function ClassDashboard() {
   const { cls }       = useParams();
   const { addToast }  = useToast();
+  const { isAdmin }   = useAuth();
   const navigate      = useNavigate();
   const now           = new Date();
 
@@ -280,9 +282,11 @@ export default function ClassDashboard() {
               </select>
             </div>
 
-            <button id="add-student-btn" className="btn btn-primary" onClick={openAddStudentModal}>
-              + Add Student
-            </button>
+            {isAdmin && (
+              <button id="add-student-btn" className="btn btn-primary" onClick={openAddStudentModal}>
+                + Add Student
+              </button>
+            )}
           </div>
         </div>
 
@@ -311,9 +315,9 @@ export default function ClassDashboard() {
               <div className="empty-state-icon">👥</div>
               <div className="empty-state-title">{search ? 'No students match search' : 'No students in Class ' + cls}</div>
               <div className="empty-state-text">
-                {search ? `No student found matching "${search}"` : 'Click "+ Add Student" to enter student profiles.'}
+                {search ? `No student found matching "${search}"` : isAdmin ? 'Click "+ Add Student" to enter student profiles.' : 'No students have been added yet.'}
               </div>
-              {!search && (
+              {!search && isAdmin && (
                 <button className="btn btn-primary" style={{ marginTop: 8 }} onClick={openAddStudentModal}>
                   + Add Student
                 </button>
@@ -333,7 +337,7 @@ export default function ClassDashboard() {
                     <th style={{ minWidth: 100, textAlign: 'right' }}>Paid</th>
                     <th style={{ minWidth: 100, textAlign: 'right' }}>Remaining</th>
                     <th style={{ minWidth: 80, textAlign: 'center' }}>Roll No</th>
-                    <th style={{ minWidth: 100, textAlign: 'right' }}>Actions</th>
+                    {isAdmin && <th style={{ minWidth: 100, textAlign: 'right' }}>Actions</th>}
                   </tr>
                 </thead>
                 <tbody>
@@ -363,18 +367,20 @@ export default function ClassDashboard() {
 
                     return (
                       <tr key={student.id}>
-                        {/* 1. Student Name + Fee button inline */}
+                        {/* 1. Student Name + Fee button inline (admin only) */}
                         <td style={{ fontWeight: 700, color: 'var(--text-primary)' }}>
                           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
                             <span>{student.name}</span>
-                            <button
-                              id={`pay-btn-${student.id}`}
-                              className="btn btn-primary btn-sm"
-                              onClick={() => openPayModal(student)}
-                              style={{ flexShrink: 0 }}
-                            >
-                              + Fee
-                            </button>
+                            {isAdmin && (
+                              <button
+                                id={`pay-btn-${student.id}`}
+                                className="btn btn-primary btn-sm"
+                                onClick={() => openPayModal(student)}
+                                style={{ flexShrink: 0 }}
+                              >
+                                + Fee
+                              </button>
+                            )}
                           </div>
                         </td>
 
@@ -415,25 +421,27 @@ export default function ClassDashboard() {
                           {student.rollNumber || '—'}
                         </td>
 
-                        {/* Actions: Edit + Delete only */}
-                        <td>
-                          <div className="fee-action-group" style={{ justifyContent: 'flex-end' }}>
-                            <button
-                              id={`edit-btn-${student.id}`}
-                              className="btn btn-secondary btn-sm"
-                              onClick={() => openEditStudentModal(student)}
-                            >
-                              Edit
-                            </button>
-                            <button
-                              id={`del-btn-${student.id}`}
-                              className="btn btn-danger btn-sm"
-                              onClick={() => setDeleteTarget(student)}
-                            >
-                              ✕
-                            </button>
-                          </div>
-                        </td>
+                        {/* Actions: Edit + Delete only (admin only) */}
+                        {isAdmin && (
+                          <td>
+                            <div className="fee-action-group" style={{ justifyContent: 'flex-end' }}>
+                              <button
+                                id={`edit-btn-${student.id}`}
+                                className="btn btn-secondary btn-sm"
+                                onClick={() => openEditStudentModal(student)}
+                              >
+                                Edit
+                              </button>
+                              <button
+                                id={`del-btn-${student.id}`}
+                                className="btn btn-danger btn-sm"
+                                onClick={() => setDeleteTarget(student)}
+                              >
+                                ✕
+                              </button>
+                            </div>
+                          </td>
+                        )}
                       </tr>
                     );
                   })}
