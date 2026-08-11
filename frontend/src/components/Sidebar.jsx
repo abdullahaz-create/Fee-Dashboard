@@ -71,7 +71,7 @@ export default function Sidebar() {
             className={({ isActive }) => `sidebar-nav-link ${isActive ? 'active' : ''}`}
             onClick={closeMobile}
           >
-            <span className="nav-icon">📊</span>
+            <span className="nav-icon"></span>
             Subject Summary
           </NavLink>
         </nav>
