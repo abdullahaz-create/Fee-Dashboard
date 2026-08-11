@@ -3,6 +3,8 @@
  * In serverless (Vercel), each hot module reload would create a new PrismaClient
  * and exhaust the database connection pool. This pattern reuses a single instance.
  */
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 const { PrismaClient } = require('@prisma/client');
 
 const globalForPrisma = global;
