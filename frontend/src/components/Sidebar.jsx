@@ -21,7 +21,7 @@ export default function Sidebar() {
       {/* Mobile Header */}
       <div className="mobile-header">
         <button className="mobile-menu-btn" onClick={() => setMobileOpen(true)}>☰</button>
-        <span className="mobile-logo">Pak Academy Fee Manager</span>
+        <span className="mobile-logo">Fee Dashboard</span>
       </div>
 
       {mobileOpen && <div className="sidebar-overlay" onClick={closeMobile} />}
@@ -30,7 +30,7 @@ export default function Sidebar() {
         <div className="sidebar-logo">
           <div className="sidebar-logo-title">
             <div className="logo-icon">🎓</div>
-            Fee Manager
+            Pak Academy Fee Manager
           </div>
           <div className="sidebar-logo-subtitle">Pak Academy Fee Manager</div>
         </div>
