@@ -74,6 +74,15 @@ export default function Sidebar() {
             <span className="nav-icon"></span>
             Subject Summary
           </NavLink>
+
+          <NavLink
+            to="/expenses"
+            className={({ isActive }) => `sidebar-nav-link ${isActive ? 'active' : ''}`}
+            onClick={closeMobile}
+          >
+            <span className="nav-icon"></span>
+            Expenses
+          </NavLink>
         </nav>
 
         <div className="sidebar-footer">
@@ -83,7 +92,7 @@ export default function Sidebar() {
             </div>
             <div className="sidebar-user-role">
               <span className={`role-badge role-badge-${user?.role}`}>
-                {isAdmin ? '🔐 Admin' : '👁️ View Only'}
+                {isAdmin ? '🔐 Admin' : ' View Only'}
               </span>
             </div>
           </div>

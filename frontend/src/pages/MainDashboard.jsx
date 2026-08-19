@@ -42,6 +42,15 @@ export default function MainDashboard() {
             </div>
             <div className="class-card-arrow">→</div>
           </div>
+
+          <div className="class-card class-card-expenses" onClick={() => navigate('/expenses')}>
+            <div className="class-card-icon"></div>
+            <div className="class-card-content">
+              <div className="class-card-label">Expenses</div>
+              <div className="class-card-sub">Manage and view academy expenses · Monthly Expense Records</div>
+            </div>
+            <div className="class-card-arrow">→</div>
+          </div>
         </div>
       </main>
     </div>

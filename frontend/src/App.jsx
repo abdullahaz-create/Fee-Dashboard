@@ -7,6 +7,7 @@ import ClassDashboard from './pages/ClassDashboard';
 import StudentDetail from './pages/StudentDetail';
 import SubjectDashboard from './pages/SubjectDashboard';
 import SubjectSummaryAll from './pages/SubjectSummaryAll';
+import ExpensesDashboard from './pages/ExpensesDashboard';
 
 function PrivateRoute({ children }) {
   const { user, loading } = useAuth();
@@ -28,6 +29,7 @@ function AppRoutes() {
       <Route path="/"              element={<PublicRoute><Login /></PublicRoute>} />
       <Route path="/dashboard"          element={<PrivateRoute><MainDashboard /></PrivateRoute>} />
       <Route path="/subject-summary"     element={<PrivateRoute><SubjectSummaryAll /></PrivateRoute>} />
+      <Route path="/expenses"            element={<PrivateRoute><ExpensesDashboard /></PrivateRoute>} />
       <Route path="/class/:cls"          element={<PrivateRoute><ClassDashboard /></PrivateRoute>} />
       <Route path="/class/:cls/subjects" element={<PrivateRoute><SubjectDashboard /></PrivateRoute>} />
       <Route path="/students/:id"        element={<PrivateRoute><StudentDetail /></PrivateRoute>} />

@@ -10,6 +10,7 @@ const subjectRoutes = require('./routes/subjects');
 const feeRoutes     = require('./routes/fees');
 const paymentRoutes = require('./routes/payments');
 const classRoutes   = require('./routes/classes');
+const expenseRoutes = require('./routes/expenses');
 
 const app  = express();
 const PORT = process.env.PORT || 3001;
@@ -43,6 +44,7 @@ app.use('/api/students/:studentId/subjects',  subjectRoutes);
 app.use('/api/students/:studentId/fees',      feeRoutes);
 app.use('/api/fees',                          paymentRoutes);
 app.use('/api/classes',                       classRoutes);
+app.use('/api/expenses',                      expenseRoutes);
 
 // ─── Health check ─────────────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {

@@ -64,12 +64,10 @@ export default function Login() {
         {/* ── Admin Login Section ── */}
         <div className="login-section">
           <div className="login-section-label">
-            <span className="login-section-icon">🔐</span>
             Admin Login
           </div>
           {adminError && (
             <div className="login-error">
-              <span>⚠️</span>
               {adminError}
             </div>
           )}
@@ -92,7 +90,7 @@ export default function Login() {
               type="submit"
               disabled={adminLoading}
             >
-              {adminLoading ? 'Signing in...' : '🔑 Admin Login'}
+              {adminLoading ? 'Signing in...' : 'Admin Login'}
             </button>
           </form>
         </div>
@@ -107,12 +105,10 @@ export default function Login() {
         {/* ── Member Login Section ── */}
         <div className="login-section">
           <div className="login-section-label">
-            <span className="login-section-icon">👁️</span>
             Member Login <span className="login-section-hint">(View only)</span>
           </div>
           {memberError && (
             <div className="login-error">
-              <span>⚠️</span>
               {memberError}
             </div>
           )}
@@ -135,7 +131,7 @@ export default function Login() {
               type="submit"
               disabled={memberLoading}
             >
-              {memberLoading ? 'Signing in...' : '👁️ Member Login'}
+              {memberLoading ? 'Signing in...' : 'Member Login'}
             </button>
           </form>
         </div>

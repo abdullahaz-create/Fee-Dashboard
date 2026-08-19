@@ -328,6 +328,7 @@ export default function ClassDashboard() {
               <table className="table ledger-table">
                 <thead>
                   <tr>
+                    <th style={{ minWidth: 48, textAlign: 'center', color: 'var(--text-muted)' }}>No.</th>
                     <th style={{ minWidth: 220, textAlign: 'left' }}>Student Name</th>
                     <th style={{ minWidth: 130, textAlign: 'right' }}>Total Fee</th>
                     <th style={{ minWidth: 90, textAlign: 'center' }}>Status</th>
@@ -341,7 +342,7 @@ export default function ClassDashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredStudents.map(student => {
+                  {filteredStudents.map((student, idx) => {
                     const record = student.feeRecords?.[0];
 
                     // Map subject fees
@@ -367,6 +368,11 @@ export default function ClassDashboard() {
 
                     return (
                       <tr key={student.id}>
+                        {/* 0. Row Number */}
+                        <td style={{ textAlign: 'center', fontWeight: 600, color: 'var(--text-muted)', fontSize: 13 }}>
+                          {idx + 1}
+                        </td>
+
                         {/* 1. Student Name + Fee button inline (admin only) */}
                         <td style={{ fontWeight: 700, color: 'var(--text-primary)' }}>
                           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
