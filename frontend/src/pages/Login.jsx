@@ -17,7 +17,7 @@ export default function Login() {
   const handleAdminLogin = async (e) => {
     e.preventDefault();
     setAdminError('');
-    if (!adminPassword.trim()) { setAdminError('Please enter the admin password.'); return; }
+    if (!adminPassword.trim()) { setAdminError('Please enter the admin pin'); return; }
     setAdminLoading(true);
     try {
       const res = await api.post('/auth/login', { password: adminPassword.trim() });

@@ -91,19 +91,19 @@ export default function SubjectDashboard() {
         {data && (
           <div className="subject-dash-banner">
             <div className="subject-dash-banner-item">
-              <span className="subject-dash-banner-label">👥 Total Students</span>
+              <span className="subject-dash-banner-label">Total Students</span>
               <strong className="subject-dash-banner-value">{data.summary.totalStudents}</strong>
             </div>
             <div className="subject-dash-banner-item">
-              <span className="subject-dash-banner-label">💰 Total Owed</span>
+              <span className="subject-dash-banner-label">Total Owed</span>
               <strong className="subject-dash-banner-value">{fmt(data.summary.totalOwed)}</strong>
             </div>
             <div className="subject-dash-banner-item subject-dash-banner-item--green">
-              <span className="subject-dash-banner-label">✅ Total Collected</span>
+              <span className="subject-dash-banner-label">Total Collected</span>
               <strong className="subject-dash-banner-value">{fmt(data.summary.totalCollected)}</strong>
             </div>
             <div className="subject-dash-banner-item subject-dash-banner-item--red">
-              <span className="subject-dash-banner-label">⏳ Remaining</span>
+              <span className="subject-dash-banner-label">Remaining</span>
               <strong className="subject-dash-banner-value">
                 {fmt(data.summary.totalOwed - data.summary.totalCollected)}
               </strong>
@@ -116,7 +116,7 @@ export default function SubjectDashboard() {
           <div className="empty-state"><div className="spinner" /></div>
         ) : !data || data.subjects.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-state-icon">📋</div>
+            <div className="empty-state-icon"></div>
             <div className="empty-state-title">No subject data for {MONTHS[selMonth - 1]} {selYear}</div>
             <div className="empty-state-text">
               Add students to Class {cls}, configure their subject fees, then record payments.
@@ -132,7 +132,7 @@ export default function SubjectDashboard() {
         ) : (
           <>
             <div className="subject-dash-period-label">
-              📅 {MONTHS[selMonth - 1]} {selYear} &nbsp;·&nbsp; Class {cls}
+              {MONTHS[selMonth - 1]} {selYear} &nbsp;·&nbsp; Class {cls}
             </div>
 
             <div className="subject-dash-grid">
@@ -150,7 +150,7 @@ export default function SubjectDashboard() {
                     <div className="subject-dash-card-header">
                       <div className="subject-dash-card-name">{subject.subjectName}</div>
                       {isFullyCollected && (
-                        <span className="subject-dash-fully-badge">✓ Fully Collected</span>
+                        <span className="subject-dash-fully-badge">Fully Collected</span>
                       )}
                     </div>
 
@@ -184,7 +184,7 @@ export default function SubjectDashboard() {
                     {/* Status counts */}
                     <div className="subject-dash-counts">
                       <span className="subject-dash-count subject-dash-count--paid">
-                        ✓ {subject.paidCount} Paid
+                        {subject.paidCount} Paid
                       </span>
                       {subject.partialCount > 0 && (
                         <span className="subject-dash-count subject-dash-count--partial">
@@ -193,7 +193,7 @@ export default function SubjectDashboard() {
                       )}
                       {subject.unpaidCount > 0 && (
                         <span className="subject-dash-count subject-dash-count--unpaid">
-                          ✗ {subject.unpaidCount} Unpaid
+                          {subject.unpaidCount} Unpaid
                         </span>
                       )}
                     </div>

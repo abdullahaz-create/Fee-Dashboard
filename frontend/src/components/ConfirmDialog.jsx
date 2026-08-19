@@ -15,7 +15,7 @@ export default function ConfirmDialog({ isOpen, onClose, onConfirm, title, messa
       }
     >
       <div style={{ textAlign: 'center' }}>
-        <div className="confirm-icon">🗑️</div>
+        <div className="confirm-icon"></div>
         <div className="confirm-title">{title}</div>
         <div className="confirm-text">{message}</div>
       </div>

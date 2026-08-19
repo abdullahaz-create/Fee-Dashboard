@@ -294,11 +294,11 @@ export default function ClassDashboard() {
         <div className="card ledger-card">
           <div className="card-header" style={{ padding: '16px 20px' }}>
             <div className="ledger-header-title">
-              📅 {MONTHS[selMonth - 1]} {selYear} Fee Table
+              {MONTHS[selMonth - 1]} {selYear} Fee Table
               <span className="ledger-student-count">({filteredStudents.length} Students)</span>
             </div>
             <div className="search-bar">
-              <span className="search-icon">🔍</span>
+              <span className="search-icon"></span>
               <input
                 id="search-students"
                 placeholder="Search student, father name, roll..."
@@ -312,7 +312,7 @@ export default function ClassDashboard() {
             <div className="empty-state"><div className="spinner" /></div>
           ) : filteredStudents.length === 0 ? (
             <div className="empty-state">
-              <div className="empty-state-icon">👥</div>
+              <div className="empty-state-icon"></div>
               <div className="empty-state-title">{search ? 'No students match search' : 'No students in Class ' + cls}</div>
               <div className="empty-state-text">
                 {search ? `No student found matching "${search}"` : isAdmin ? 'Click "+ Add Student" to enter student profiles.' : 'No students have been added yet.'}
@@ -443,7 +443,7 @@ export default function ClassDashboard() {
                                 className="btn btn-danger btn-sm"
                                 onClick={() => setDeleteTarget(student)}
                               >
-                                ✕
+                                ×
                               </button>
                             </div>
                           </td>
@@ -471,7 +471,7 @@ export default function ClassDashboard() {
             </>
           }
         >
-          {formError && <div className="login-error" style={{ marginBottom: 16 }}><span>⚠️</span>{formError}</div>}
+          {formError && <div className="login-error" style={{ marginBottom: 16 }}>{formError}</div>}
 
           <div className="form-row">
             <div className="form-group">
@@ -573,7 +573,7 @@ export default function ClassDashboard() {
 
             return (
               <>
-                {payError && <div className="login-error" style={{ marginBottom: 16 }}><span>⚠️</span>{payError}</div>}
+                {payError && <div className="login-error" style={{ marginBottom: 16 }}>{payError}</div>}
 
                 <div className="pay-summary-box">
                   <div style={{ fontWeight: 700, marginBottom: 8, fontSize: 13, color: 'var(--text-primary)' }}>
@@ -601,7 +601,7 @@ export default function ClassDashboard() {
 
                 {remaining <= 0 ? (
                   <div style={{ textAlign: 'center', padding: 12, color: 'var(--success)', fontWeight: 700 }}>
-                    ✅ Fee for {MONTHS[selMonth - 1]} {selYear} is fully paid.
+                    Fee for {MONTHS[selMonth - 1]} {selYear} is fully paid.
                   </div>
                 ) : (
                   <>

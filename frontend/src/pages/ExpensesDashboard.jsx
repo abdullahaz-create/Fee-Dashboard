@@ -182,7 +182,7 @@ export default function ExpensesDashboard() {
         <div className="card ledger-card">
           <div className="card-header" style={{ padding: '16px 20px' }}>
             <div className="ledger-header-title">
-              💸 {MONTHS[selMonth - 1]} {selYear} Expenses
+              {MONTHS[selMonth - 1]} {selYear} Expenses
               <span className="ledger-student-count">({expenses.length} item{expenses.length !== 1 ? 's' : ''})</span>
             </div>
           </div>
@@ -191,7 +191,7 @@ export default function ExpensesDashboard() {
             <div className="empty-state"><div className="spinner" /></div>
           ) : expenses.length === 0 ? (
             <div className="empty-state">
-              <div className="empty-state-icon">💸</div>
+              <div className="empty-state-icon"></div>
               <div className="empty-state-title">No expenses for {MONTHS[selMonth - 1]} {selYear}</div>
               <div className="empty-state-text">
                 {isAdmin
@@ -281,7 +281,7 @@ export default function ExpensesDashboard() {
         >
           {formError && (
             <div className="login-error" style={{ marginBottom: 16 }}>
-              <span>⚠️</span>{formError}
+              {formError}
             </div>
           )}
 

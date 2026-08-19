@@ -126,7 +126,7 @@ export default function SubjectSummaryAll() {
           <div className="empty-state"><div className="spinner" /></div>
         ) : !data || data.subjects.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-state-icon">📋</div>
+            <div className="empty-state-icon"></div>
             <div className="empty-state-title">No data for {MONTHS[selMonth - 1]} {selYear}</div>
             <div className="empty-state-text">
               Record fee payments for students in Class 11 or Class 12 to see subject totals here.
@@ -143,7 +143,7 @@ export default function SubjectSummaryAll() {
         ) : (
           <>
             <div className="subject-dash-period-label">
-              📅 {MONTHS[selMonth - 1]} {selYear} &nbsp;·&nbsp; Class 11 + Class 12 Combined
+              {MONTHS[selMonth - 1]} {selYear} &nbsp;·&nbsp; Class 11 + Class 12 Combined
             </div>
 
             <div className="subject-dash-grid">

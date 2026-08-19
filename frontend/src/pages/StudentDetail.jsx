@@ -209,9 +209,9 @@ export default function StudentDetail() {
           <div className="student-detail-info">
             <div className="student-detail-name">{student.name}</div>
             <div className="student-detail-meta">
-              <div className="student-detail-meta-item">🏫 Class {student.class}</div>
-              {student.rollNumber  && <div className="student-detail-meta-item">🔢 Roll No: {student.rollNumber}</div>}
-              {student.admissionDate && <div className="student-detail-meta-item">📅 Admitted: {student.admissionDate}</div>}
+              <div className="student-detail-meta-item">Class {student.class}</div>
+              {student.rollNumber  && <div className="student-detail-meta-item">Roll No: {student.rollNumber}</div>}
+              {student.admissionDate && <div className="student-detail-meta-item">Admitted: {student.admissionDate}</div>}
             </div>
           </div>
           <div style={{ marginLeft: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 8 }}>
@@ -228,10 +228,10 @@ export default function StudentDetail() {
         {/* ── Subject Fee Configuration ─────────────────────────────────── */}
         <div className="card" style={{ marginBottom: 24 }}>
           <div className="card-header">
-            <h2 className="card-title">📋 Subject-wise Monthly Fee</h2>
+            <h2 className="card-title">Subject-wise Monthly Fee</h2>
             {isAdmin && (
               <button className="btn btn-secondary btn-sm" onClick={openSubjectModal}>
-                ✏️ {subjects.length > 0 ? 'Edit Subjects' : 'Configure Subjects'}
+                {subjects.length > 0 ? 'Edit Subjects' : 'Configure Subjects'}
               </button>
             )}
           </div>
@@ -266,7 +266,7 @@ export default function StudentDetail() {
         {/* ── Monthly Fee Records ───────────────────────────────────────── */}
         <div className="card">
           <div className="card-header">
-            <h2 className="card-title">📅 Monthly Fee Records</h2>
+            <h2 className="card-title">Monthly Fee Records</h2>
             <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
               <select className="form-select" value={filterYear} onChange={e => setFilterYear(Number(e.target.value))}>
                 {years.map(y => <option key={y} value={y}>{y}</option>)}
@@ -281,7 +281,7 @@ export default function StudentDetail() {
 
           {feeRecords.length === 0 ? (
             <div className="empty-state">
-              <div className="empty-state-icon">📅</div>
+              <div className="empty-state-icon"></div>
               <div className="empty-state-title">No fee records for {filterYear}</div>
               <div className="empty-state-text">
                 {subjects.length === 0
@@ -346,7 +346,7 @@ export default function StudentDetail() {
                   {/* Payment history */}
                   {record.payments.length > 0 && (
                     <div className="payment-history">
-                      <div className="payment-history-title">💰 Payment History</div>
+                      <div className="payment-history-title">Payment History</div>
                       {record.payments.map((p, i) => (
                         <div key={p.id} className="payment-history-row">
                           <span className="payment-idx">Payment {i + 1}</span>
@@ -415,7 +415,7 @@ export default function StudentDetail() {
                 min="0"
                 style={{ flex: 1 }}
               />
-              <button className="btn btn-danger btn-sm" onClick={() => removeSubjectRow(i)}>✕</button>
+              <button className="btn btn-danger btn-sm" onClick={() => removeSubjectRow(i)}>×</button>
             </div>
           ))}
           <button className="btn btn-secondary btn-sm" onClick={addSubjectRow} style={{ marginTop: 8 }}>
@@ -440,7 +440,7 @@ export default function StudentDetail() {
             </>
           }
         >
-          {feeError && <div className="login-error" style={{ marginBottom: 16 }}><span>⚠️</span>{feeError}</div>}
+          {feeError && <div className="login-error" style={{ marginBottom: 16 }}>{feeError}</div>}
           <div className="form-row">
             <div className="form-group">
               <label className="form-label">Month</label>
@@ -503,7 +503,7 @@ export default function StudentDetail() {
         >
           {payRecord && (
             <>
-              {payError && <div className="login-error" style={{ marginBottom: 16 }}><span>⚠️</span>{payError}</div>}
+              {payError && <div className="login-error" style={{ marginBottom: 16 }}>{payError}</div>}
 
               <div className="pay-summary-box">
                 <div className="pay-summary-row">

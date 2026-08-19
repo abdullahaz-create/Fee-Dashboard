@@ -29,7 +29,7 @@ export default function Sidebar() {
       <aside className={`sidebar ${mobileOpen ? 'open' : ''}`}>
         <div className="sidebar-logo">
           <div className="sidebar-logo-title">
-            <div className="logo-icon">🎓</div>
+            <div className="logo-icon"></div>
             Pak Academy
           </div>
           <div className="sidebar-logo-subtitle">Fee Manager</div>
@@ -92,7 +92,7 @@ export default function Sidebar() {
             </div>
             <div className="sidebar-user-role">
               <span className={`role-badge role-badge-${user?.role}`}>
-                {isAdmin ? '🔐 Admin' : ' View Only'}
+                {isAdmin ? 'Admin' : 'View Only'}
               </span>
             </div>
           </div>
